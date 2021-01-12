@@ -36,7 +36,9 @@
     <aura:attribute name="edit" type="Boolean" default="true"/>
     <aura:if isTrue="{!v.edit}"> 
     <aura:set attribute="else">
-        The RowsNumber label you entered is incorrect. Please edit the page again.
+        <div class="slds-align_absolute-center" style="color:white">
+        <p><b> The RowsNumber label incorrectly entered.</b></p>
+        </div>
 	</aura:set>
     </aura:if>
 </aura:component>
