@@ -19,7 +19,7 @@ Global  with sharing class AccountingEntryApex{
         Integer count = [SELECT count ( ) FROM Accounting_Entry__c];
         String sql = 'SELECT Name, Occurred_Date__c, Type__c, Locked__c, Amount__c, Reason__c FROM Accounting_Entry__c order by Occurred_Date__c DESC limit:n';
         List<Accounting_Entry__c> AccountingEntryList = new List<Accounting_Entry__c> ( );
-        if( n > 0 ){
+        if( n > 0 && n < 50000 ){
             AccountingEntryList = Database.query ( sql );
             try{
             	String [ ] fieldsToCheck = new String [ ] { 
