@@ -1,0 +1,42 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="AccountingEntryApex" >
+     <!--组件初始化操作-->    
+	<aura:attribute name="AccountingEntryBook" type="Accounting_Entry__c[]" 
+                    default="{'Accounting Entry No':'' , 'Occurred Date':'' , 'Type':'' , 
+                             'Locked':'false' , 'Amount':'0.0' , 'Reason':''}" />
+    <aura:handler name="init" action="{!c.Init}" value="{!this}"/>
+    <aura:attribute name="number" type="Integer" />
+    <div class="slds-grid">
+    	<table class="slds-table slds-table_bordered slds-table_cell-buffer slds-no-row-hover">
+        	<thead>
+            	<tr calss="slds-text-heading_label">
+                	<th scope="col">number</th> 
+                    <th scope="col">Accounting Entry No</th> 
+                    <th scope="col">Occurred Date</th> 
+                    <th scope="col">Type</th> 
+                    <th scope="col">Locked</th> 
+                    <th scope="col">Amount</th>
+                    <th scope="col">Reason</th>
+                </tr>
+            </thead>
+        	<tbody>
+        	<aura:iteration items="{!v.AccountingEntryBook}" var="obj" indexVar="index">
+        		<tr>
+            		<th scope="row">{!index+1}</th>
+                	<td>{!obj.Name}</td>
+                	<td>{!obj.Occurred_Date__c}</td>
+                	<td>{!obj.Type__c}</td>
+                	<td>{!obj.Locked__c}</td>
+                	<td>{!obj.Amount__c}</td>
+                	<td>{!obj.Reason__c}</td>
+            	</tr>
+        	</aura:iteration>
+        	</tbody>
+        </table>    
+	</div>
+    <aura:attribute name="edit" type="Boolean" default="true"/>
+    <aura:if isTrue="{!v.edit}"> 
+    <aura:set attribute="else">
+        The RowsNumber label you entered is incorrect. Please edit the page again.
+	</aura:set>
+    </aura:if>
+</aura:component>
