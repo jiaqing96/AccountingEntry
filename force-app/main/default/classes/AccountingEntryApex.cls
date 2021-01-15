@@ -18,7 +18,8 @@ Global  with sharing class AccountingEntryApex{
     @AuraEnabled
     public static List<Accounting_Entry__c> getAccountingEntry ( Integer n, String recordid ) {
         Integer count = [SELECT count ( ) FROM Accounting_Entry__c];
-        String sql = 'SELECT Accounting_Entry__c.Name, Accounting_Entry__c.Occurred_Date__c, Accounting_Entry__c.Type__c, Accounting_Entry__c.Locked__c, Accounting_Entry__c.Amount__c, Accounting_Entry__c.Reason__c FROM Accounting_Entry__c WHERE Accounting_Entry__c.Account_Book_Entry_relationship__c.Accounting_Book__c.Account__c.id=:recordid order by Accounting_Entry__c.Occurred_Date__c DESC limit:n';
+        //String sql = 'SELECT Name, Occurred_Date__c, Type__c, Locked__c, Amount__c, Reason__c FROM Accounting_Entry__c WHERE Accounts.id=:recordid order by Occurred_Date__c DESC limit:n';
+        String sql = 'SELECT Name, Occurred_Date__c, Type__c, Locked__c, Amount__c, Reason__c FROM Accounting_Entry__c WHERE Account_Book_Entry_relationship__r.Accounting_Book__r.Account__r.id=:recordid order by Occurred_Date__c DESC limit:n';
         List<Accounting_Entry__c> AccountingEntryList = new List<Accounting_Entry__c> ( );
         System.debug(count+'=====================');
         System.debug(n+'=====================');
