@@ -8,10 +8,10 @@
 ({
 	helperMethod : function ( component, event, helper ) {
         var action = component.get ( "c.getAccountingEntry" );
-        //var recordid = component.get("c.recordId")
-        var x = component.get ( "v.number" ); 
-        action.setParams ( { n:x } );
-        action.setParams ( { recordid:component.get("v.recordId") } ); 
+        //var recordid = component.get("v.recordId")
+        //var x = component.get ( "v.number" ); 
+        action.setParams ( { n:component.get ( "v.number" ) } );
+        action.setParams ( { recordid:component.get ( "v.recordId" ) } ); 
         action.setCallback ( this, function ( response ) { 
         	var state = response.getState ( ); 
             if ( state === "SUCCESS" ) { 
