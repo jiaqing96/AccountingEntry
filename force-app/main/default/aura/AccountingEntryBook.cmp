@@ -1,12 +1,11 @@
-<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="AccountingEntryApex" >
-     <!--组件初始化操作-->    
-	<aura:attribute name="AccountingEntryBook" type="Accounting_Entry__c[]" 
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="AccountingBook">
+	<aura:attribute name="AccountingEntryBook" type="Account_Book_Entry_relationship__c[]" 
                     default="{'Accounting Entry No':'' , 'Occurred Date':'' , 'Type':'' , 
                              'Locked':'false' , 'Amount':'0.0' , 'Reason':''}" />
     <aura:handler name="init" action="{!c.Init}" value="{!this}"/>
     <aura:attribute name="number" type="Integer" />
     <aura:attribute name="recordId" type="String" />
-    <div class="slds-grid">
+     <div class="slds-grid">
     	<table class="slds-table slds-table_bordered slds-table_cell-buffer slds-no-row-hover">
         	<thead>
             	<tr calss="slds-text-heading_label">
@@ -23,12 +22,12 @@
         	<aura:iteration items="{!v.AccountingEntryBook}" var="obj" indexVar="index">
         		<tr>
             		<th scope="row">{!index+1}</th>
-                	<td>{!obj.Name}</td>
-                	<td>{!obj.Occurred_Date__c}</td>
-                	<td>{!obj.Type__c}</td>
-                	<td>{!obj.Locked__c}</td>
-                	<td>{!obj.Amount__c}</td>
-                	<td>{!obj.Reason__c}</td>
+                	<td>{!obj.Accounting_Entry__r.Name}</td>
+                	<td>{!obj.Accounting_Entry__r.Occurred_Date__c}</td>
+                	<td>{!obj.Accounting_Entry__r.Type__c}</td>
+                	<td>{!obj.Accounting_Entry__r.Locked__c}</td>
+                	<td>{!obj.Accounting_Entry__r.Amount__c}</td>
+                	<td>{!obj.Accounting_Entry__r.Reason__c}</td>
             	</tr>
         	</aura:iteration>
         	</tbody>

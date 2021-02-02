@@ -1,33 +1,25 @@
 /*
 *  Name : helperMethod
 *  Type : function
-*  Description : Call the Backstage apex function and connect to the foreground component.
-                 If the condition is met, the Apex database query statement will be displayed in the Component. 
-                 If the condition is not met, an error reminder will be given
+*  Description : Query the status and get the data for APEX
 */
-({
-	helperMethod : function ( component, event, helper ) {
-        var action = component.get ( "c.getAccountingEntry" );
-        //var recordid = component.get("v.recordId")
-        //var x = component.get ( "v.number" ); 
-        action.setParams ( { n:component.get ( "v.number" ) } );
-        action.setParams ( { recordid:component.get ( "v.recordId" ) } ); 
-        action.setCallback ( this, function ( response ) { 
-        	var state = response.getState ( ); 
-            if ( state === "SUCCESS" ) { 
-                var count = response.getReturnValue ( ).length; 
-                if ( count > 0 ) { 
-                    component.set ( "v.edit", "true" );  
-                    component.set ( "v.AccountingEntryBook", response.getReturnValue ( ) );
+({ 
+    helperMethod : function (component, action) {
+	return new Promise(function(resolve, reject) {
+		action.setCallback(this, function(response) {
+			let _state = response.getState();
+            if (_state === "SUCCESS") {
+                    resolve( response.getReturnValue());
+            } else {
+                let errors = response.getError();
+                let message = "Error";
+                if (errors && Array.isArray(errors) && errors.length > 0) {
+                    message = JSON.stringify(errors);
                 }
-                else{
-                    component.set ( "v.edit", "false" );  
-                }	
+                reject(new Error(message));
             }
-            else {
-            	console.log ( "Failed with state:s" + state );
-            }
-        });
-         $A.enqueueAction ( action );
-	}       
+         });
+         $A.enqueueAction(action);
+	});
+}    
 })
